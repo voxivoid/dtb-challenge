@@ -28,7 +28,9 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    "~/assets/breakpoints.styl",
     "element-ui/lib/theme-chalk/index.css",
+    "@makay/flexbox/flexbox.min.css",
   ],
 
   /*

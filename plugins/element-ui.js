@@ -7,6 +7,7 @@ import locale from "element-ui/lib/locale";
 
 import {
   DatePicker,
+  Input,
   Loading,
   Table,
   TableColumn,
@@ -20,6 +21,7 @@ const langs = {
 export default ({ app }) => {
   // requiring on demand
   Vue.use(DatePicker);
+  Vue.use(Input);
   Vue.use(Loading.directive);
   Vue.use(Table);
   Vue.use(TableColumn);

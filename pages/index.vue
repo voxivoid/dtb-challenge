@@ -1,9 +1,10 @@
 <template lang="pug">
-  spaceship-table
+  .column.align-center
+    .container
+      spaceship-table
 </template>
 
 <script>
-
 import SpaceshipTable from "@/components/SpaceshipTable.vue";
 
 export default {
@@ -39,7 +40,13 @@ export default {
 </script>
 
 <style lang="stylus">
+@import '~assets/breakpoints'
 
-h1
-  color red
+.container
+  padding 64px 16px
+  width 100%
+  max-width 1024px
+
+  @media $breakpoints-spec.sm-and-up
+    padding 64px
 </style>
