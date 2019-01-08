@@ -1,15 +1,17 @@
 <template lang="pug">
   .spaceship-table.column
-    i.fas.fa-star
 
     .input.column
       label {{ $t("search") }}
       el-input(v-model="searchKeyword" :placeholder="$t('search')" @input="onInput")
+
     el-table(:data="tableData" v-loading="loading")
       el-table-column(:label="$t('name')", prop="name")
       el-table-column(:label="$t('model')", prop="model")
       el-table-column(:label="$t('manufacturer')", prop="manufacturer")
-      el-table-column(fixed="right", label="Operations", width="120")
+      el-table-column
+        .row.justify-center.align-center(slot-scope="scope")
+          star(:starred="isStarred(scope.row)" @click.native="updateFavorites(scope.row)")
 </template>
 
 <script>
@@ -18,6 +20,10 @@ import Star from "@/components/Star.vue";
 import starships from "@/mixins/api/starships";
 
 export default {
+  pouch: {
+    starships: {},
+  },
+
   components: {
     Star,
   },
@@ -34,7 +40,7 @@ export default {
   },
 
   async created() {
-    this.search();
+    await this.search();
   },
 
   methods: {
@@ -48,11 +54,52 @@ export default {
       try {
         const { results } = await this.api.starships.search(this.searchKeyword);
         this.tableData = results;
-      } catch (e) {
+      }
+      catch (e) {
         // TODO: show an error
-      } finally {
+      }
+      finally {
         this.loading = false;
       }
+    },
+
+    async updateFavorites(starship) {
+      try {
+        const s = await this.getStarship(starship.url);
+
+        if (s) {
+          await this.putStarship({ _id: s._id, _rev: s._rev, starred: !s.starred });
+        }
+        else {
+          // if it does not exist it means that is not starred
+          await this.putStarship({ _id: starship.url, starred: true });
+        }
+      }
+      catch (e) {
+        // TODO: show an error
+      }
+    },
+
+    async getStarship(id) {
+      try {
+        return await this.$pouch.get("starships", id);
+      }
+      catch (e) {
+        return null;
+      }
+    },
+
+    async putStarship(starship) {
+      try {
+        await this.$pouch.put("starships", starship);
+      }
+      catch (e) {
+        // TODO: show an error
+      }
+    },
+
+    isStarred(starship) {
+      return !!this.starships.find(s => s._id === starship.url && s.starred);
     },
   },
 

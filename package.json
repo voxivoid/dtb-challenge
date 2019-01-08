@@ -18,7 +18,11 @@
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
     "nuxt": "^2.0.0",
-    "nuxt-i18n": "^5.4.4"
+    "nuxt-i18n": "^5.4.4",
+    "pouchdb": "^7.0.0",
+    "pouchdb-find": "^7.0.0",
+    "pouchdb-live-find": "^0.4.0",
+    "vue-pouch": "0.0.23"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
