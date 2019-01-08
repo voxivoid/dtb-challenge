@@ -1,5 +1,7 @@
 <template lang="pug">
   .spaceship-table.column
+    i.fas.fa-star
+
     .input.column
       label {{ $t("search") }}
       el-input(v-model="searchKeyword" :placeholder="$t('search')" @input="onInput")
@@ -7,20 +9,27 @@
       el-table-column(:label="$t('name')", prop="name")
       el-table-column(:label="$t('model')", prop="model")
       el-table-column(:label="$t('manufacturer')", prop="manufacturer")
+      el-table-column(fixed="right", label="Operations", width="120")
 </template>
 
 <script>
+import Star from "@/components/Star.vue";
+
 import starships from "@/mixins/api/starships";
 
 export default {
+  components: {
+    Star,
+  },
+
   mixins: [starships],
 
   data() {
     return {
       loading: false,
       searchKeyword: "",
-      tableData: [],
       typingTimer: null,
+      tableData: [],
     };
   },
 

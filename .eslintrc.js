@@ -36,5 +36,6 @@ module.exports = {
     // 'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
     "max-len": "off",
     quotes: ["error", "double"],
+    "object-curly-newline": ["error", { multiline: true, consistent: true }],
   },
 };
