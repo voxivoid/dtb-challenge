@@ -1,12 +1,16 @@
 <template lang="pug">
-  div
-    div {{ $t('teste')}}
-    button(@click="locale")
+  spaceship-table
 </template>
 
 <script>
 
+import SpaceshipTable from "@/components/SpaceshipTable.vue";
+
 export default {
+  components: {
+    SpaceshipTable,
+  },
+
   data() {
     return {
       teste: null,
@@ -18,16 +22,16 @@ export default {
 
   methods: {
     locale() {
-      this.$router.push(this.switchLocalePath('de'));
+      this.$router.push(this.switchLocalePath("de"));
     },
   },
   i18n: {
     messages: {
       en: {
-        teste: 'en',
+        teste: "en",
       },
       de: {
-        teste: 'de',
+        teste: "de",
       },
     },
   },

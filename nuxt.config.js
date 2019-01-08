@@ -1,8 +1,8 @@
-const i18n = require('./i18n/');
-const pkg = require('./package');
+const i18n = require("./i18n/");
+const pkg = require("./package");
 
 module.exports = {
-  mode: 'spa',
+  mode: "spa",
 
   /*
   ** Headers of the page
@@ -10,47 +10,47 @@ module.exports = {
   head: {
     title: pkg.name,
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description },
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: pkg.description },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
     ],
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: "#fff" },
 
   /*
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css',
+    "element-ui/lib/theme-chalk/index.css",
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui',
+    "@/plugins/element-ui",
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/axios',
-    ['nuxt-i18n', i18n],
+    "@nuxtjs/axios",
+    ["nuxt-i18n", i18n],
   ],
   /*
   ** Axios module configuration
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'https://swapi.co/api',
+    baseURL: "https://swapi.co/api",
   },
 
   /*
@@ -64,9 +64,9 @@ module.exports = {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
-          enforce: 'pre',
+          enforce: "pre",
           test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
+          loader: "eslint-loader",
           exclude: /(node_modules)/,
         });
       }
