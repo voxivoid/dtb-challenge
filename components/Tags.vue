@@ -91,9 +91,9 @@ export default {
     },
 
     async addTag(tag) {
-      if (!tag) return;
-
       try {
+        if (!tag) return;
+
         const starshipDB = await this.getStarship(this.starship.url);
 
         if (starshipDB) {

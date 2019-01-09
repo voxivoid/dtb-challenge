@@ -1,6 +1,8 @@
 <template lang="pug">
   .column.align-center
     .container
+      .row.justify-center
+        h1 SWAPI Super Search
       spaceship-table
 </template>
 
@@ -43,10 +45,13 @@ export default {
 @import '~assets/breakpoints'
 
 .container
-  padding 64px 16px
+  padding 64px 8px
   width 100%
   max-width "%s" % $breakpoints.xl
 
   @media $breakpoints-spec.sm-and-up
     padding 64px
+
+h1
+  margin-bottom 64px
 </style>

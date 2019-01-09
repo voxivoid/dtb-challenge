@@ -14,7 +14,7 @@
       el-table-column(:label="$t('model')" prop="model" min-width="128px")
       el-table-column(:label="$t('manufacturer')" prop="manufacturer" min-width="128px")
 
-      el-table-column(width="48" fixed="right" type="expand")
+      el-table-column(width="24" fixed="right" type="expand")
         template(slot-scope="scope")
           tags(:starships="starships" :starship="scope.row")
 </template>
