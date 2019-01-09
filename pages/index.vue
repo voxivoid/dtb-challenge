@@ -1,40 +1,102 @@
 <template lang="pug">
-  .column.align-center
-    .container
-      .row.justify-center
-        h1 SWAPI Super Search
-      spaceship-table
+.search-page.column
+
+  .search.row.align-end.justify-space-between.wrap
+    .input.column.flex-sm-12
+      label {{ $t("search") }}
+      el-input(v-model="searchKeyword" :placeholder="$t('search')" @input="onInput" clearable)
+
+    .input.column.flex-sm-12
+      el-collapse(v-model="filterCollapse" accordion)
+        el-collapse-item(:title="$t('filter')" name="1")
+          .column
+            label {{ $t("byTag") }}
+            el-input(v-model="tagFilter" :placeholder="$t('search')" @input="onInput" clearable)
+
+  spaceship-table(:starships="starships" :loading="loading" :tableData="tableData")
 </template>
 
 <script>
 import SpaceshipTable from "@/components/SpaceshipTable.vue";
 
+import starshipsApi from "@/mixins/api/starships";
+
 export default {
+  pouch: {
+    starships: {},
+  },
+
   components: {
     SpaceshipTable,
   },
 
+  mixins: [
+    starshipsApi,
+  ],
+
   data() {
     return {
-      teste: null,
+      searchKeyword: "",
+      tagFilter: "",
+      typingTimer: null,
+      filterCollapse: null,
+      loading: true,
+      tableData: [],
     };
   },
 
-  created() {
+  async created() {
+    await this.search();
   },
 
   methods: {
-    locale() {
+    locale() { // FIXME:
       this.$router.push(this.switchLocalePath("de"));
     },
+
+    onInput() {
+      this.loading = true;
+      clearTimeout(this.typingTimer);
+      this.typingTimer = setTimeout(this.search, 300); // waits 0.3s after the user stops writing before making the request
+    },
+
+    async search() {
+      try {
+        this.loading = true;
+
+        let { results } = await this.api.starships.search(this.searchKeyword);
+
+        if (this.tagFilter) {
+          results = results.filter(starship => this.hasTag(starship, this.tagFilter));
+        }
+
+        this.tableData = results;
+      }
+      catch (e) {
+        console.log(e);
+        // TODO: show an error
+      }
+      finally {
+        this.loading = false;
+      }
+    },
+
+    hasTag(starship, tag) {
+      return this.starships && !!this.starships.find(s => s._id === starship.url && s.tags && s.tags.includes(tag));
+    },
   },
+
   i18n: {
     messages: {
       en: {
-        teste: "en",
+        search: "Search",
+        filter: "Filter",
+        byTag: "By tag",
       },
       de: {
-        teste: "de",
+        search: "Suche",
+        filter: "Filter",
+        byTag: "",
       },
     },
   },
@@ -44,14 +106,16 @@ export default {
 <style lang="stylus">
 @import '~assets/breakpoints'
 
-.container
-  padding 64px 8px
+.search-page
   width 100%
-  max-width "%s" % $breakpoints.xl
 
-  @media $breakpoints-spec.sm-and-up
-    padding 64px
+  .input
+    width 100%
+    margin-bottom 16px
 
-h1
-  margin-bottom 64px
+    @media $breakpoints-spec.md-and-up
+      max-width 256px
+
+    label
+      margin-bottom 8px
 </style>

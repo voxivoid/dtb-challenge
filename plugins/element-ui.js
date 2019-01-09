@@ -12,6 +12,8 @@ import {
   DatePicker,
   Input,
   Loading,
+  Menu,
+  MenuItem,
   Table,
   TableColumn,
   Tag,
@@ -30,6 +32,8 @@ export default ({ app }) => {
   Vue.use(DatePicker);
   Vue.use(Input);
   Vue.use(Loading.directive);
+  Vue.use(Menu);
+  Vue.use(MenuItem);
   Vue.use(Table);
   Vue.use(TableColumn);
   Vue.use(Tag);
