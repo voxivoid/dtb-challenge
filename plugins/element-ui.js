@@ -7,6 +7,8 @@ import locale from "element-ui/lib/locale";
 
 import {
   Button,
+  Collapse,
+  CollapseItem,
   DatePicker,
   Input,
   Loading,
@@ -23,6 +25,8 @@ const langs = {
 export default ({ app }) => {
   // requiring on demand
   Vue.use(Button);
+  Vue.use(Collapse);
+  Vue.use(CollapseItem);
   Vue.use(DatePicker);
   Vue.use(Input);
   Vue.use(Loading.directive);
