@@ -80,6 +80,7 @@ html
 
 h1
   margin-bottom 64px
+  text-align center
 
 .content
   margin-top 32px

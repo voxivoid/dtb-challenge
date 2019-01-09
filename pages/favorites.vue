@@ -31,6 +31,7 @@ export default {
 
   watch: {
     starships(starships) {
+      this.loading = true;
       const promises = [];
 
       starships.forEach((starship) => {
@@ -43,7 +44,7 @@ export default {
         this.tableData = results;
         this.loading = false;
       }).catch(() => {
-        // TODO: show an error message
+        // TODO: show an error
       });
     },
   },

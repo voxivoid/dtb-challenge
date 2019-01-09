@@ -61,6 +61,11 @@ export default {
     },
 
     async search() {
+      if (this.tagFilter && !this.searchKeyword) {
+        this.filterByTag();
+        return;
+      }
+
       try {
         this.loading = true;
 
@@ -73,12 +78,30 @@ export default {
         this.tableData = results;
       }
       catch (e) {
-        console.log(e);
         // TODO: show an error
       }
       finally {
         this.loading = false;
       }
+    },
+
+    filterByTag() {
+      this.loading = true;
+      const promises = [];
+
+      this.starships.forEach((starship) => {
+        if (starship.tags && starship.tags.includes(this.tagFilter)) {
+          promises.push(this.api.starships.get(starship._id));
+        }
+      });
+
+      Promise.all(promises).then((results) => {
+        this.tableData = results;
+
+        this.loading = false;
+      }).catch(() => {
+        // TODO: show an error
+      });
     },
 
     hasTag(starship, tag) {
