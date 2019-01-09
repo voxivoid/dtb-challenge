@@ -14,6 +14,8 @@ import {
   Loading,
   Menu,
   MenuItem,
+  Option,
+  Select,
   Table,
   TableColumn,
   Tag,
@@ -34,6 +36,8 @@ export default ({ app }) => {
   Vue.use(Loading.directive);
   Vue.use(Menu);
   Vue.use(MenuItem);
+  Vue.use(Option);
+  Vue.use(Select);
   Vue.use(Table);
   Vue.use(TableColumn);
   Vue.use(Tag);

@@ -1,12 +1,15 @@
 // https://nuxt-community.github.io/nuxt-i18n/
 
-module.exports = {
-  locales: [
-    { code: 'en', iso: 'en-US' },
-    { code: 'de', iso: 'de' },
-  ],
+export const locales = [
+  { code: "en", iso: "en-US", label: "English" },
+  { code: "de", iso: "de", label: "Deutsche" },
+];
+
+export default {
+  locales,
   vueI18n: {
-    fallbackLocale: 'en',
+    fallbackLocale: "en",
   },
-  defaultLocale: 'en',
+  defaultLocale: "en",
+
 };

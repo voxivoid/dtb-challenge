@@ -1,14 +1,16 @@
 <template lang="pug">
   .column.align-center
     .page
+      .row.justify-end
+        locale-selector
       .row.justify-center
         h1 SWAPI Super Search
-      el-menu(:default-active='activeIndex', mode='horizontal', @select='pushRoute')
-        el-menu-item(index='/')
+      el-menu(:default-active='activeIndex' mode='horizontal' @select='pushRoute')
+        el-menu-item(index='index')
           .row.align-center
             i.el-icon-search
             span {{ $t('search') }}
-        el-menu-item(index='/favorites')
+        el-menu-item(index='favorites')
           .row.align-center
             i.el-icon-star-off
             span {{ $t('favorites') }}
@@ -17,7 +19,13 @@
 </template>
 
 <script>
+import LocaleSelector from "@/components/LocaleSelector.vue";
+
 export default {
+  components: {
+    LocaleSelector,
+  },
+
   data() {
     return {
       activeIndex: "/",
@@ -25,12 +33,12 @@ export default {
   },
 
   created() {
-    this.activeIndex = this.$route.path;
+    [this.activeIndex] = this.$route.name.split("_");
   },
 
   methods: {
-    pushRoute(index) {
-      this.$router.push(index);
+    pushRoute(routeName) {
+      this.$router.push(this.localePath(routeName));
     },
   },
 
@@ -76,7 +84,7 @@ html
   max-width "%s" % $breakpoints.xl
 
   @media $breakpoints-spec.md-and-up
-    padding 64px
+    padding 32px 64px
 
 h1
   margin-bottom 64px
