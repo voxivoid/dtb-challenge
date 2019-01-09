@@ -131,14 +131,4 @@ export default {
 
 .search-page
   width 100%
-
-  .input
-    width 100%
-    margin-bottom 16px
-
-    @media $breakpoints-spec.md-and-up
-      max-width 256px
-
-    label
-      margin-bottom 8px
 </style>

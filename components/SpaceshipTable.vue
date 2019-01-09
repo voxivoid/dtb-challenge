@@ -11,7 +11,9 @@
 
     el-table-column(width="24" fixed="right" type="expand")
       template(slot-scope="scope")
-        tags(:starships="starships" :starship="scope.row")
+        .tags
+          p {{ $t("tags") }}
+          tags(:starships="starships" :starship="scope.row")
 </template>
 
 <script>
@@ -92,4 +94,10 @@ export default {
 .el-table
   & >>> .cell
     word-break normal
+
+.tags
+  p
+    margin-bottom 16px
+    font-size 12px
+    color #909399
 </style>

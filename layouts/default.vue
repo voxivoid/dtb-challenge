@@ -84,4 +84,15 @@ h1
 
 .content
   margin-top 32px
+
+.input
+  width 100%
+  margin-bottom 16px
+
+  @media $breakpoints-spec.md-and-up
+    max-width 256px
+
+label
+  font-size 14px
+  margin-bottom 8px
 </style>
