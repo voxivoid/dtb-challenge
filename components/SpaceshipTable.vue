@@ -23,7 +23,6 @@
 import Star from "@/components/Star.vue";
 import Tags from "@/components/Tags.vue";
 
-import breakpointsUtils from "@/mixins/utils/breakpoints";
 import starshipsApi from "@/mixins/api/starships";
 import starshipsPouchdb from "@/mixins/pouchdb/starships";
 
@@ -38,7 +37,6 @@ export default {
   },
 
   mixins: [
-    breakpointsUtils,
     starshipsApi,
     starshipsPouchdb,
   ],
@@ -50,13 +48,6 @@ export default {
       typingTimer: null,
       tableData: [],
     };
-  },
-
-  computed: {
-    md() {
-      console.log(this.size.md_and_up);
-      return this.size.md_and_up;
-    },
   },
 
   async created() {
@@ -136,4 +127,8 @@ export default {
 
     label
       margin-bottom 8px
+
+.el-table
+  & >>> .cell
+    word-break normal
 </style>
