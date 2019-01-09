@@ -5,19 +5,27 @@
       label {{ $t("search") }}
       el-input(v-model="searchKeyword" :placeholder="$t('search')" @input="onInput")
 
-    el-table(:data="tableData" v-loading="loading")
-      el-table-column(:label="$t('name')", prop="name")
-      el-table-column(:label="$t('model')", prop="model")
-      el-table-column(:label="$t('manufacturer')", prop="manufacturer")
-      el-table-column
+    el-table(:data="tableData" v-loading="loading" default-expand-all)
+      el-table-column(width="48" fixed)
         .row.justify-center.align-center(slot-scope="scope")
           star(:starred="isStarred(scope.row)" @click.native="updateFavorites(scope.row)")
+
+      el-table-column(:label="$t('name')" prop="name" min-width="128px")
+      el-table-column(:label="$t('model')" prop="model" min-width="128px")
+      el-table-column(:label="$t('manufacturer')" prop="manufacturer" min-width="128px")
+
+      el-table-column(width="48" fixed="right" type="expand")
+        template(slot-scope="scope")
+          tags(:starships="starships" :starship="scope.row")
 </template>
 
 <script>
 import Star from "@/components/Star.vue";
+import Tags from "@/components/Tags.vue";
 
-import starships from "@/mixins/api/starships";
+import breakpointsUtils from "@/mixins/utils/breakpoints";
+import starshipsApi from "@/mixins/api/starships";
+import starshipsPouchdb from "@/mixins/pouchdb/starships";
 
 export default {
   pouch: {
@@ -26,17 +34,29 @@ export default {
 
   components: {
     Star,
+    Tags,
   },
 
-  mixins: [starships],
+  mixins: [
+    breakpointsUtils,
+    starshipsApi,
+    starshipsPouchdb,
+  ],
 
   data() {
     return {
-      loading: false,
+      loading: true,
       searchKeyword: "",
       typingTimer: null,
       tableData: [],
     };
+  },
+
+  computed: {
+    md() {
+      console.log(this.size.md_and_up);
+      return this.size.md_and_up;
+    },
   },
 
   async created() {
@@ -65,10 +85,10 @@ export default {
 
     async updateFavorites(starship) {
       try {
-        const s = await this.getStarship(starship.url);
+        const starshipDB = await this.getStarship(starship.url);
 
-        if (s) {
-          await this.putStarship({ _id: s._id, _rev: s._rev, starred: !s.starred });
+        if (starshipDB) {
+          await this.putStarship({ _id: starshipDB._id, _rev: starshipDB._rev, starred: !starshipDB.starred });
         }
         else {
           // if it does not exist it means that is not starred
@@ -80,26 +100,8 @@ export default {
       }
     },
 
-    async getStarship(id) {
-      try {
-        return await this.$pouch.get("starships", id);
-      }
-      catch (e) {
-        return null;
-      }
-    },
-
-    async putStarship(starship) {
-      try {
-        await this.$pouch.put("starships", starship);
-      }
-      catch (e) {
-        // TODO: show an error
-      }
-    },
-
     isStarred(starship) {
-      return !!this.starships.find(s => s._id === starship.url && s.starred);
+      return this.starships && !!this.starships.find(s => s._id === starship.url && s.starred);
     },
   },
 
@@ -108,14 +110,16 @@ export default {
       en: {
         name: "Name",
         model: "Model",
-        manufacturer: "Manufacturer",
         search: "Search",
+        manufacturer: "Manufacturer",
+        tags: "Tags",
       },
       de: {
         name: "Name",
         model: "Modell",
-        manufacturer: "Hersteller",
         search: "Suche",
+        manufacturer: "Hersteller",
+        tags: "Stichworte",
       },
     },
   },

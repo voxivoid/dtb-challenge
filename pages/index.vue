@@ -45,7 +45,7 @@ export default {
 .container
   padding 64px 16px
   width 100%
-  max-width 1024px
+  max-width "%s" % $breakpoints.xl
 
   @media $breakpoints-spec.sm-and-up
     padding 64px
