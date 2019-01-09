@@ -71,11 +71,11 @@ html
   margin 0
 
 .page
-  padding 64px 8px
+  padding 64px 0
   width 100%
   max-width "%s" % $breakpoints.xl
 
-  @media $breakpoints-spec.sm-and-up
+  @media $breakpoints-spec.md-and-up
     padding 64px
 
 h1
@@ -88,9 +88,11 @@ h1
 .input
   width 100%
   margin-bottom 16px
+  padding 0 16px
 
   @media $breakpoints-spec.md-and-up
     max-width 256px
+    padding 0
 
 label
   font-size 14px

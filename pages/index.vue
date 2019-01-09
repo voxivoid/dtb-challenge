@@ -2,11 +2,11 @@
 .search-page.column
 
   .search.row.align-end.justify-space-between.wrap
-    .input.column.flex-sm-12
+    .input.column
       label {{ $t("search") }}
       el-input(v-model="searchKeyword" :placeholder="$t('search')" @input="onInput" clearable)
 
-    .input.column.flex-sm-12
+    .input.column
       el-collapse(v-model="filterCollapse" accordion)
         el-collapse-item(:title="$t('filter')" name="1")
           .column
