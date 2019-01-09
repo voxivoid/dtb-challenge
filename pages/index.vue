@@ -50,10 +50,6 @@ export default {
   },
 
   methods: {
-    locale() { // FIXME:
-      this.$router.push(this.switchLocalePath("de"));
-    },
-
     onInput() {
       this.loading = true;
       clearTimeout(this.typingTimer);

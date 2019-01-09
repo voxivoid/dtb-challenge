@@ -1,5 +1,5 @@
-const i18n = require("./i18n/");
-const pkg = require("./package");
+import i18n from "./i18n";
+import pkg from "./package";
 
 module.exports = {
   mode: "spa",

@@ -2,7 +2,7 @@
 .column.input
   label {{ $t('language') }}
   el-select(v-model="locale" @change="updateLocale")
-    el-option(v-for="locale in locales" :key="locale.code" :label="locale.label" :value="locale.code")
+    el-option(v-for="locale in locales" :key="locale.code" :label="locale.name" :value="locale.code")
 </template>
 
 <script>
