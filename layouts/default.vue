@@ -87,7 +87,7 @@ html
     padding 32px 64px
 
 h1
-  margin-bottom 64px
+  margin 64px 0
   text-align center
 
 .content
