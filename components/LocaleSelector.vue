@@ -16,6 +16,10 @@ export default {
     };
   },
 
+  created() {
+    this.locale = this.$store.state.i18n.locale;
+  },
+
   methods: {
     updateLocale(locale) {
       this.$router.push(this.switchLocalePath(locale));
