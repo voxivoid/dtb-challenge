@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Star shows the correct icon when not starred 1`] = `<div class="star"><i class="el-icon-star-off"></i></div>`;
+
+exports[`Star shows the correct icon when starred 1`] = `<div class="star"><i class="el-icon-star-on"></i></div>`;
