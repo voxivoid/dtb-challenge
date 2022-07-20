@@ -4,6 +4,9 @@
   "description": " ",
   "author": "André Domingues",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
